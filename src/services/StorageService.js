@@ -3,13 +3,14 @@ import toastr from 'toastr';
 
 /**
  * Metodo para subir archivos a storage
- * @returns {String} URL de descarga de la imagen
+ * @returns {Promise} URL de descarga de la imagen
  * @param {String} ref Nodo de storage donde se almacenara el archivo.
  * @param {File} file Archivo a almacenar en el storage.
  * @param {callback} setProgress CallBack para definir progreso en el estado de componentes.
  */
-export const uploadFile = (ref, file, setProgress) => {
+export const uploadFile = (ref, file, setProgress, afterUpload) => {
     var uploadTask = storage.ref(ref).put(file);
+    toastr.info("Guardando imagen");
     return uploadTask.on("state_changed", function (snap) {
         var progress = (snap.bytesTransferred / snap.totalBytes) * 100;
         setProgress(progress);
@@ -19,7 +20,7 @@ export const uploadFile = (ref, file, setProgress) => {
     },() => {
         toastr.success("Imagen guardada correctamente");
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            return downloadURL;
+            afterUpload(downloadURL);
         });
     });
 }
