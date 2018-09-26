@@ -49,7 +49,7 @@ class TeamForm extends Component {
             <form onSubmit={this.onSubmit} >
                 <FormGroup>
                     <label htmlFor="name">Nombre del equipo</label>
-                    <input type="text" className="form-control" name="name" id="name" placeholder="Nombre del equipo" value={this.state.name} onChange={this.onChange} />
+                    <input type="text" className="form-control" name="name" id="name" placeholder="Nombre del equipo" value={this.state.name} onChange={this.onChange} required/>
                 </FormGroup>
                 <UploadImage fileLabel={this.state.file !== null ? this.state.name : "Escoge el logo de tu equipo"} handleUpload={this.handleUpload} uploadProgress={this.state.uploadProgress} />
                 <br/>
