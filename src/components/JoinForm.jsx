@@ -4,11 +4,13 @@ import CardHeader from './Card/CardHeader';
 import CardBody from './Card/CardBody';
 import RegisterForm from './RegisterForm';
 import Collapse from './Collapse';
-import TeamForm from './TeamForm';
+import TeamForm from './TeamForm/TeamForm';
+import toastr from 'toastr';
+import Header from './Header';
 
 class JoinForm extends Component {
     state = {
-        currentStep: 1
+        currentStep: 0
     };
 
     nextStep = () => {
@@ -19,26 +21,38 @@ class JoinForm extends Component {
         this.setState({currentStep: index});
     }
 
+    dontBack = () => {
+        toastr.warning("No puedes volver a este paso");
+        toastr.info("Toda la informacion puedes modificarla posteriormente");
+    }
+
+    continue = () => {
+        toastr.success("Esto te manda a otra pagina :v");
+    }
+
     render() {
         return (
             <Card>
+                <Header title="Registro" description="Registro de capitan y equipo para copa 2018/9"/>
                 <CardHeader>
                     Registro personal
                 </CardHeader>
-                <CardBody>
+                <CardBody close={this.state.currentStep !== 0}>
                     <Collapse show={this.state.currentStep === 0 ? "show" : ""}>
                         <RegisterForm nextStep={this.nextStep} />
                     </Collapse>
                 </CardBody>
-                <CardHeader style="border-top">
+                <CardHeader styleLine="border-top">
                     Registra a tu equipo
                 </CardHeader>
                 <Collapse id="collapseTeam" show={this.state.currentStep === 1 ? "show" : ""}>
-                    <CardBody>
+                    <CardBody close={this.state.currentStep !== 1}>
                         <TeamForm nextStep={this.nextStep} />
-                        {this.state.currentStep !== 1 &&
-                        <button className="btn btn-outline-primary btn-lg btn-block" onClick={() => this.setStep(1)}>Volver a este paso</button>
-                        }
+                    </CardBody>
+                </Collapse>
+                <Collapse id="collapse" show={this.state.currentStep === 2 ? "show" : ""}>
+                    <CardBody close={this.state.currentStep !== 2}>
+                        <input type="button" className="btn btn-primary" onClick={this.continue} value="Continuar" />
                     </CardBody>
                 </Collapse>
             </Card>
