@@ -24,6 +24,12 @@ class TeamForm extends Component {
 
     afterUpload = (downloadURL) => {
         teamsRef.child(this.state.name.replace(' ','').toUpperCase()).update({logo: downloadURL, name: this.state.name});
+        let userToadd = {
+            age: this.props.profile.age,
+            captain: this.props.profile.captain,
+            name: this.props.profile.name
+        }
+        teamsRef.child(this.state.name.replace(' ','').toUpperCase()).child('Players').child(this.props.uid).update(userToadd);
         toastr.success("Datos guardados con exito");
         this.props.nextStep();
     }
@@ -54,7 +60,7 @@ class TeamForm extends Component {
                 <UploadImage fileLabel={this.state.file !== null ? this.state.name : "Escoge el logo de tu equipo"} handleUpload={this.handleUpload} uploadProgress={this.state.uploadProgress} />
                 <br/>
                 <FormGroup>
-                    <input type="submit" className="btn btn-primary" value="Guardar datos del equipo"/>
+                    <input type="submit" className="btn btn-dark btn-lg" value="Guardar datos del equipo"/>
                 </FormGroup>
             </form>
         );
@@ -63,7 +69,8 @@ class TeamForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        uid: state.user.profile.uid
+        uid: state.user.profile.uid,
+        profile: state.user.profile
     }
 }
 

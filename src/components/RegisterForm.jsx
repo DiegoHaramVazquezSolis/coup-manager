@@ -56,7 +56,7 @@ class RegisterForm extends Component {
                     <input type="password" name="password" id="password" className="form-control" placeholder="Elige tu contraseña" aria-describedby="passwordInstructions" value={this.state.password} onChange={this.onChange} required/>
                     <small id="passwordInstructions" className="form-text text-muted">Longitud minima de 6 caracteres</small>
                 </div>
-                <input type="submit" className="btn btn-primary" value="Continuar"/>
+                <input type="submit" className="btn btn-dark btn-lg" value="Continuar"/>
             </form>
         );
     }
