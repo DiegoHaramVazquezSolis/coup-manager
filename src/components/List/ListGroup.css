@@ -1,0 +1,8 @@
+.active {
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+}
+
+.list-group {
+    padding-bottom: 1.75em;
+}
