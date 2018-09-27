@@ -5,6 +5,7 @@ import toastr from 'toastr';
  * Metodo para crear cuenta
  * @param {String} email Email usuario a crear
  * @param {String} password Contraseña del usuario a crear
+ * @param {Callback} callback Accion a realizar al terminar el registro
  */
 export const createAccount = (email, password, callback) => {
     auth.createUserWithEmailAndPassword(email, password).then((user) => {
