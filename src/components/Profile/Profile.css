@@ -1,0 +1,22 @@
+.mask {
+    background-color: rgba(0, 0, 0, .35);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+    background-attachment: fixed;
+    border-radius: 50%;
+}
+
+.mask:hover {
+    opacity: 1;
+    cursor: pointer;
+}
