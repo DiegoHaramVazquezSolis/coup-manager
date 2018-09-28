@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import logo from './../logo.svg';
 import "./../styles/NavBar.css";
+import { logOut } from '../services/AuthService';
 
 class NavBar extends Component {
+
+    close = (e) => {
+        e.preventDefault();
+        logOut();
+    }
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -16,9 +23,9 @@ class NavBar extends Component {
                     <li className="nav-item active">
                         <a className="nav-link" href="/">Registro <span className="sr-only">(current)</span></a>
                     </li>
-                    {this.props.userName !== null ?
+                    {this.props.userName != null ?
                     <li className="nav-item">
-                        <a className="nav-link">Bienvenido {this.props.userName}</a>
+                        <a onClick={this.close} className="nav-link" href="/">Cerrar sesion</a>
                     </li>
                     :
                     <li className="nav-item">
