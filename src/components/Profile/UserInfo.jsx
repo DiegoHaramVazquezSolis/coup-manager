@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import FormGroup from '../Forms/FormGroup';
 import { usersRef } from '../../services/DatabaseService';
 import toastr from 'toastr';
+import logo from './../../assets/aprove.svg';
+import editInfo from './../../assets/pencil.png';
 
 class UserInfo extends Component {
     state = {
@@ -10,7 +12,8 @@ class UserInfo extends Component {
         name: '',
         alias: '',
         number: 0,
-        position: ''
+        position: '',
+        captain: false
     };
 
     onChange = (e) => {
@@ -24,7 +27,7 @@ class UserInfo extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const {name, alias, number, position} = this.state;
-        usersRef.child(this.props.profile.uid).update({name, alias, number, position},(error) => {
+        usersRef.child(this.props.profile.uid).update({name, alias, number, position: position},(error) => {
             if(error) {
                 toastr.error("Error al actualizar informacion");
                 console.log(error);
@@ -37,8 +40,7 @@ class UserInfo extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState){
         if(prevState.name === ''){
-            console.log(nextProps);
-            return {name: nextProps.profile.name || '', alias: nextProps.profile.alias, number: nextProps.profile.number || 0, position: nextProps.profile.position};
+            return {name: nextProps.profile.name || '', alias: nextProps.profile.alias || '', number: nextProps.profile.number || 0, position: nextProps.profile.position || '', captain: nextProps.profile.captain || false};
         }
         return null;
     }
@@ -61,7 +63,7 @@ class UserInfo extends Component {
                 <FormGroup>
                     <label htmlFor="position" onDoubleClick={this.toogleEdit}>Posicion</label>
                     <select className={"custom-select"} name="position" id="position" value={this.state.position} onChange={this.onChange} disabled={this.state.edit ? false : true}>
-                        <option value="" selected>Escoge tu posicion</option>
+                        <option value="" defaultValue={true}>Escoge tu posicion</option>
                         <option value="Portero">Portero</option>
                         <option value="Defensa Central">Defensa central</option>
                         <option value="Defensa lateral">Defensa lateral</option>
@@ -76,8 +78,19 @@ class UserInfo extends Component {
                         <option value="Delantero centro">Delantero centro</option>
                     </select>
                 </FormGroup>
-                {this.state.edit && 
-                    <input type="submit" className="btn btn-dark btn-lg" value="Guardar cambios" />
+                {this.state.captain && 
+                    <FormGroup>
+                        <img src={logo} style={{maxWidth: '25%'}} className="img-thumbnail rounded-circle" alt=""/>
+                        <h4>Capitan</h4>
+                    </FormGroup>
+                }
+                {this.state.edit &&
+                    <div>
+                        <input type="submit" className="btn btn-dark btn-lg" value="Guardar cambios" />
+                    </div>
+                }
+                {!this.state.edit &&
+                    <img src={editInfo} alt="Editar" onClick={() => this.setState({ edit: true })} />
                 }
             </form>
         );
