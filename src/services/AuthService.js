@@ -31,10 +31,14 @@ export const createAccount = (email, password, callback) => {
  */
 export const signIn = (email, password) => {
     auth.signInWithEmailAndPassword(email, password).then((user) => {
-        toastr.success("Bienvenido de nuevo "+ user.user.displayName);
+        toastr.success("Bienvenido de nuevo "+ user.user.email);
     },
     function (rejected) {
         toastr.error("Error");
         console.log(rejected);
     });
+}
+
+export const logOut = (history) => {
+    auth.signOut();
 }
