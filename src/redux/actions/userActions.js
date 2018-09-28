@@ -9,6 +9,8 @@ export const userChecker = () => (dispatch) => {
     auth.onAuthStateChanged((user) => {
         if(user){
             return dispatch(getProfile(user,dispatch));
+        }else {
+            return dispatch(getProfile(user, dispatch));
         }
     });
 }
@@ -18,10 +20,10 @@ export const userChecker = () => (dispatch) => {
  * @param dispatch 
  */
 function getProfile(user, dispatch) {
-    usersRef.child(user.uid).once("value", function(profile) {
+    usersRef.child(user.uid).on("value", function(profile) {
         const userProfile = {
             age: profile.val().age,
-            apodo: profile.val().apodo,
+            alias: profile.val().alias,
             captain: profile.val().captain,
             email: profile.val().email,
             team: profile.val().team,
