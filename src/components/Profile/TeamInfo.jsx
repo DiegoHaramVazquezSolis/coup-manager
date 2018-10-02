@@ -63,8 +63,8 @@ class TeamInfo extends Component {
                 <CardHeader>
                     Informacion del equipo
                 </CardHeader>
-                <img className="card-img-top" src={this.state.logo} alt=""/>
                 <CardBody>
+                    <img className="card-img-top img-thumbnail rounded-circle" src={this.state.logo} alt=""/>
                     {this.state.edit &&
                         <div>
                             <UploadImage fileLabel="Selecciona el nuevo logo" handleUpload={this.handleUpload} uploadProgress={this.state.progress} />

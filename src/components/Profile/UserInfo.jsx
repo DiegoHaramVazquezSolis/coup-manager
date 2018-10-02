@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import FormGroup from '../Forms/FormGroup';
-import { usersRef } from '../../services/DatabaseService';
+import { usersRef, teamsRef } from '../../services/DatabaseService';
 import toastr from 'toastr';
 import logo from './../../assets/aprove.svg';
 import editInfo from './../../assets/pencil.png';
@@ -32,6 +32,7 @@ class UserInfo extends Component {
                 toastr.error("Error al actualizar informacion");
                 console.log(error);
             } else {
+                teamsRef.child(this.props.profile.team.replace(' ','').toUpperCase()).child('Players').child(this.props.profile.uid).update({name, number, alias, position: position});
                 toastr.success("Listo, informacion guardada");
             }
         });

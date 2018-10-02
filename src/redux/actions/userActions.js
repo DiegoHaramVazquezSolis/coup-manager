@@ -20,6 +20,9 @@ export const userChecker = () => (dispatch) => {
  * @param dispatch 
  */
 function getProfile(user, dispatch) {
+    if(user == null){
+        return dispatch(userLogOut());
+    }
     usersRef.child(user.uid).on("value", function(profile) {
         const userProfile = {
             age: profile.val().age,
@@ -52,5 +55,11 @@ function userLogginSuccess(profile) {
     return {
         type: USER_LOGIN_SUCCESS,
         profile
+    }
+}
+
+function userLogOut() {
+    return {
+        type: LOGOUT_SUCCESS
     }
 }

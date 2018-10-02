@@ -43,12 +43,13 @@ class MemberSignInForm extends Component {
     addUserInDatabase = (Uid) => {
         const {email, name, age, alias} = this.state;
         usersRef.child(Uid).update({email, name, age, alias, captain: false, team: this.props.team});
-        teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('Players').child(Uid).update({captain: false, name});
+        teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('Players').child(Uid).update({captain: false, name, status: 'p'});
         teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('Players').orderByChild('captain').equalTo(true).once('value',(captain) => {
             console.log(captain.val());
             captain.forEach(function (capi) {
                 notificationsRef.child(capi.key).push().update({
                     type: 'solicitud',
+                    name: name,
                     sender: Uid
                 });
             });

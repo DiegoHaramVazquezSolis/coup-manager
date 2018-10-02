@@ -6,6 +6,9 @@ import ModalFooter from './ModalFooter';
 import { connect } from 'react-redux';
 import { teamsRef, usersRef, matchesRef } from '../../services/DatabaseService';
 import avatar from '../../assets/avatar.svg';
+import Row from '../Grid/Row/Row';
+import Col from '../Grid/Col/Col';
+import toastr from 'toastr';
 
 class NotificationModal extends Component {
     state = {
@@ -19,6 +22,17 @@ class NotificationModal extends Component {
         fifthParam: '',
         loaded: false
     };
+
+    aceptar = () => {
+        teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('Players').child(this.props.notification.sender).update({status: null});
+        toastr.success("Jugador aceptado");
+    }
+
+    rechazar = () => {
+        teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('Players').update({[this.props.notification.sender]: null});
+        //usersRef.child(this.props.notification.sender).update({team: ''}); Do in the server
+        toastr.info("Jugador rechazado");
+    }
 
     render() {
         if(!this.state.loaded && this.props.team !== undefined){
@@ -64,43 +78,45 @@ class NotificationModal extends Component {
             <ModalFade id={this.props.notification.name.replace(' ','')} >
                 <ModalHeader title={this.state.titulo} />
                 <ModalBody>
-                    <div className="row">
-                        <div className="col-md-4">
+                    <Row>
+                        <Col cols="4">
                             <img className="img-thumbnail rounded-circle" src={this.state.logo} alt=""/>
-                        </div>
-                        <div className="col-md-7 ml-auto">
+                        </Col>
+                        <Col cols="7" left={true}>
                             {this.state.mensaje}
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                     <hr/>
-                    <div className="row">
-                        <div className="col-md-8">
+                    <Row>
+                        <Col cols="8">
                             {this.state.firstParam}
-                        </div>
-                        <div className="col-md-4 ml-auto">
+                        </Col>
+                        <Col cols="4" left={true}>
                             {this.state.secondParam}
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                     <br/>
-                    <div className="row">
-                        <div className="col-md-8">
+                    <Row>
+                        <Col cols="8">
                             {this.state.thirdParam}
-                        </div>
-                        <div className="col-md-4 ml-auto">
+                        </Col>
+                        <Col cols="4" left={true}>
                             {this.state.fourthParam}
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                     <br/>
-                    <div className="row">
-                        <div className="col-md-7">
+                    <Row>
+                        <Col cols="7">
                             {this.state.fifthParam}
-                        </div>
-                        <div className="col-md-4 ml-auto">
+                        </Col>
+                        <Col cols="4" left={true}>
                             <input type="button" className="btn btn-dark btn-sm" value="Enviar mensaje"/>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                 </ModalBody>
-                <ModalFooter onClickNegative={() => console.log("Negative")} onClickPositive={() => console.log("Positive")} negativeButton="Cerrar" positiveButton="Aceptar" />
+                {this.props.notification.type === "solicitud" &&
+                    <ModalFooter onClickNegative={this.rechazar} onClickPositive={this.aceptar} negativeButton="Rechazar" positiveButton="Aceptar" />
+                }
             </ModalFade>
         );
     }
