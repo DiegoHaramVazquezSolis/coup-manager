@@ -4,6 +4,7 @@ import CardHeader from './Card/CardHeader';
 import CardBody from './Card/CardBody';
 import FormInput from './Forms/FormInput';
 import { signIn } from '../services/AuthService';
+import Header from './Header';
 
 class LogIn extends Component {
     state = {
@@ -23,6 +24,7 @@ class LogIn extends Component {
     render() {
         return (
             <Card>
+                <Header title="Inicio de sesion" />
                 <CardHeader>
                     Inicio de sesion
                 </CardHeader>
