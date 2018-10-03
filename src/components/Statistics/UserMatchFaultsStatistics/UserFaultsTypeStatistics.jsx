@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class UserFaultsTypeStatistics extends Component {
     render() {
@@ -9,17 +10,22 @@ class UserFaultsTypeStatistics extends Component {
                     <tbody>
                         <tr>
                             <th className="text-muted">Tarjetas amarillas</th>
-                            <td><h5>1</h5></td>
+                            <td><h5>{this.props.amarilla}</h5></td>
                         </tr>
                         <tr>
                             <th className="text-muted">Tarjetas rojas</th>
-                            <td><h5>0</h5></td>
+                            <td><h5>{this.props.roja}</h5></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         );
     }
+}
+
+UserFaultsTypeStatistics.propTypes = {
+    amarilla: PropTypes.number || 0,
+    roja: PropTypes.number || 0
 }
 
 export default UserFaultsTypeStatistics;

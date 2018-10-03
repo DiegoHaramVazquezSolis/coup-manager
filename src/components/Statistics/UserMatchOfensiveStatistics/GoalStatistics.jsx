@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class GoalStatistics extends Component {
     render() {
@@ -6,11 +7,15 @@ class GoalStatistics extends Component {
             <div>
                 <h4>Goles</h4>
                 <pre style={{paddingLeft: ".75em"}}>
-                        <h5><p>Goles marcados</p></h5><h3>5</h3>
+                        <h5><p>Goles marcados</p></h5><h3>{this.props.goals}</h3>
                 </pre>
             </div>
         );
     }
+}
+
+GoalStatistics.propTypes = {
+    goals: PropTypes.number.isRequired
 }
 
 export default GoalStatistics;
