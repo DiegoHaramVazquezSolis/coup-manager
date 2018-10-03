@@ -29,7 +29,7 @@ class UserMatchStatistics extends Component {
     render() {
         return (
             <Card>
-                <Header title={"Estadisticas jornada 1 "+(this.props.name != undefined ? this.props.name : "")}>
+                <Header title={"Estadisticas jornada 1 "+(this.props.name !== undefined ? this.props.name : "")}>
                 </Header>
                 <CardHeader>
                     Tus estadisticas del partido de la {this.props.match.params.etapa+" "+this.props.match.params.number}
