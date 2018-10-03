@@ -24,7 +24,7 @@ class UserMatchDefensiveStatistics extends Component {
                     <pre style={{paddingLeft: ".75em"}}>
                         <h5><p>Acciones totales</p></h5><h3>{this.state.sum}</h3>
                     </pre>
-                    <table className="table">
+                    <table className="table statistics">
                         <tbody>
                             <tr>
                                 <th className="text-muted">Disparos bloqueados</th>

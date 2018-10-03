@@ -31,7 +31,7 @@ class UserPassTypesStatistics extends Component {
                 <pre style={{paddingLeft: ".75em"}}>
                     <h5><p>Tipos intentados</p></h5><h3>{this.state.sum}/3</h3>
                 </pre>
-                <table className="table">
+                <table className="table statistics">
                     <tbody>
                         <tr>
                             <th className="text-muted">Pases cortos</th>

@@ -6,7 +6,7 @@ class UserFaultsTypeStatistics extends Component {
         return (
             <div>
                 <h4>Tarjetas</h4>
-                <table className="table">
+                <table className="table statistics">
                     <tbody>
                         <tr>
                             <th className="text-muted">Tarjetas amarillas</th>
