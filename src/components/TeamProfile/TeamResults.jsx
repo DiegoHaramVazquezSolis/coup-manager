@@ -33,7 +33,12 @@ class TeamResults extends Component {
         }
         return (
             <table className="table matches">
-                <caption><div className="bg-warning" style={{height: ".5rem",width: ".5rem"}}></div>Resultado en vivo</caption>
+                <caption>
+                    <ul className="legend-list">
+                        <li className="live-result">Resultado en vivo</li>
+                        <li className="final-result">Partido terminado</li>
+                    </ul>
+                </caption>
                 <thead>
                     <tr>
                         <th colSpan="3">Resultados hasta el momento</th>

@@ -31,3 +31,68 @@
     text-align: center;
     vertical-align: center;
 }
+
+.legend-list {
+    line-height: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.legend-list li {
+    margin-top: 2px;
+    position: relative;
+    padding-left: 1.75rem;
+}
+
+.legend-list li::before {
+    position: absolute;
+    box-sizing: border-box;
+    top: 3px;
+    left: 0;
+    border-radius: 2px;
+    content: '';
+    display: block;
+    height: 18px;
+    width: 18px;
+}
+
+.legend-list .live-result::before {
+    position: absolute;
+    box-sizing: border-box;
+    top: 3px;
+    left: 0;
+    border-radius: 2px;
+    content: '';
+    display: block;
+    height: 18px;
+    width: 18px;
+    background-color: #fec324
+}
+
+.legend-list .final-result::before {
+    position: absolute;
+    box-sizing: border-box;
+    top: 3px;
+    left: 0;
+    border-radius: 2px;
+    content: '';
+    display: block;
+    height: 18px;
+    width: 18px;
+    background-color: #dee2e6;
+}
+
+.legend-list li::after {
+    position: absolute;
+    box-sizing: border-box;
+    top: 3px;
+    left: 0;
+    background-color: transparent;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    content: '';
+    display: block;
+    height: 18px;
+    width: 18px;
+}
