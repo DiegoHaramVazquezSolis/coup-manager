@@ -7,7 +7,7 @@ import edit from './../../assets/avatar.svg';
 import UploadImage from '../UploadImage/UploadImage';
 import FormGroup from '../Forms/FormGroup';
 import { uploadFile } from '../../services/StorageService';
-import { usersRef } from '../../services/DatabaseService';
+import { usersRef, teamsRef } from '../../services/DatabaseService';
 
 
 class UserProfile extends Component {
@@ -50,6 +50,7 @@ class UserProfile extends Component {
 
     afterUpload = (downloadURL) => {
         usersRef.child(this.props.uid).update({foto: downloadURL});
+        teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('Players').child(this.props.uid).update({foto: downloadURL});
         this.setState({ edit: false });
     }
 
@@ -82,7 +83,8 @@ function mapStateToProps(state) {
     return {
         image: state.user.profile.foto,
         name: state.user.profile.name,
-        uid: state.user.profile.uid
+        uid: state.user.profile.uid,
+        team: state.user.profile.team
     }
 }
 

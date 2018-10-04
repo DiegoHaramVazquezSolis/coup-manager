@@ -52,10 +52,10 @@ class NavBar extends Component {
                         {this.props.uid != null &&
                         <li className="nav-item dropdown">
                             <button onClick={() => this.setState({ loadNotifications: true })} className="btn btn-dark dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Notificaciones <span className="badge badge-light">{Object.keys(this.state.notifications).length}</span>
+                            Notificaciones <span className="badge badge-light">{this.state.notifications instanceof Object && Object.keys(this.state.notifications).length}</span>
                             </button>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {Object.keys(this.state.notifications).map((notification, index) => (
+                            {this.state.notifications instanceof Object && Object.keys(this.state.notifications).map((notification, index) => (
                                 <div key={index}>
                                     <Notification type={this.state.notifications[notification].type} name={this.state.notifications[notification].name} sender={this.state.notifications[notification].sender} />
                                 </div>
@@ -65,7 +65,7 @@ class NavBar extends Component {
                         }
                         {this.props.uid != null && this.state.loadNotifications &&
                             <div>
-                                {Object.keys(this.state.notifications).map((notification) => (
+                                {this.state.notifications instanceof Object && Object.keys(this.state.notifications).map((notification) => (
                                     <NotificationModal notification={this.state.notifications[notification]} />
                                 ))}
                             </div>

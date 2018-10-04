@@ -6,6 +6,7 @@ import MemberSignIn from './components/MemberSignIn/MemberSignIn';
 import ProfileView from './components/Profile/ProfileView';
 import LogIn from './components/LogIn';
 import UserMatchStatistics from './components/Statistics/UserMatchStatistics';
+import TeamPrivateProfile from './components/TeamPrivateProfile/TeamPrivateProfile';
 
 class Routes extends Component {
     render() {
@@ -16,6 +17,7 @@ class Routes extends Component {
                 <Route exact path="/registro/equipo" component={JoinForm} />
                 <Route exact path="/lista" component={ListOfTeams} />
                 <Route exact path="/perfil" component={ProfileView} />
+                <Route exact path="/perfil/equipo" component={TeamPrivateProfile} />
                 <Route exact path="/estadisticas/:etapa/:number" component={UserMatchStatistics} />
             </Switch>
         );

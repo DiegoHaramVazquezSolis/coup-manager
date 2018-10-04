@@ -7,7 +7,7 @@ class UploadImage extends Component {
             <div>
                 <div className="custom-file">
                         <input type="file" className="custom-file-input" name="image" id="image" onChange={this.props.handleUpload.bind(this)} />
-                        <label className="custom-file-label" htmlFor="image">{this.props.fileLabel}</label>
+                        <label className="custom-file-label" htmlFor="image"></label>
                 </div>
                 <div className="progress">
                     <br/>
