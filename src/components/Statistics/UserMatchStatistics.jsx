@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 import CardHeader from '../Card/CardHeader';
 import CardBody from '../Card/CardBody';
 import Header from '../Header';
-import './UserMatchStatistics.css';
+import './UserMatchStatistics.module.css';
 import UserMatchStatisticsHeader from './UserMatchStatisticsHeader';
 import UserMatchOfensiveStatistics from './UserMatchOfensiveStatistics/UserMatchOfensiveStatistics';
 import UserPerformanceStatistics from './UserPerformanceStatistics/UserPerformanceStatistics';

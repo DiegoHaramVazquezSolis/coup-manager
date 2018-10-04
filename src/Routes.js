@@ -7,6 +7,7 @@ import ProfileView from './components/Profile/ProfileView';
 import LogIn from './components/LogIn';
 import UserMatchStatistics from './components/Statistics/UserMatchStatistics';
 import TeamPrivateProfile from './components/TeamPrivateProfile/TeamPrivateProfile';
+import TeamMatchStatistics from './components/Statistics/TeamMatchStatistics';
 
 class Routes extends Component {
     render() {
@@ -19,6 +20,7 @@ class Routes extends Component {
                 <Route exact path="/perfil" component={ProfileView} />
                 <Route exact path="/perfil/equipo" component={TeamPrivateProfile} />
                 <Route exact path="/estadisticas/:etapa/:number" component={UserMatchStatistics} />
+                <Route exact path="/estadisticas/equipo/partido/:matchResultId" component={TeamMatchStatistics} />
             </Switch>
         );
     }

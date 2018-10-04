@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Row from '../Grid/Row/Row';
-import Col from '../Grid/Col/Col';
+import Row from '../../Grid/Row/Row';
+import Col from '../../Grid/Col/Col';
 
-class UserMatchStatisticsHeader extends Component {
+class TeamMatchStatisticsHeader extends Component {
     render() {
         return (
             <div>
@@ -28,7 +28,7 @@ class UserMatchStatisticsHeader extends Component {
     }
 }
 
-UserMatchStatisticsHeader.propTypes = {
+TeamMatchStatisticsHeader.propTypes = {
     MatchData: PropTypes.shape({
         etapa: PropTypes.string.isRequired,
         fecha: PropTypes.string.isRequired,
@@ -37,4 +37,4 @@ UserMatchStatisticsHeader.propTypes = {
     })
 }
 
-export default UserMatchStatisticsHeader;
+export default TeamMatchStatisticsHeader;
