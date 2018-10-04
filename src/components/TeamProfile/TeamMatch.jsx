@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Row from '../Grid/Row/Row';
-import Col from '../Grid/Col/Col';
-import ThumbnailLogo from './ThumbnailLogo';
 import Match from './Match';
 
 class TeamMatch extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import logo from './../../logo.svg';
+import {ReactComponent as Logo} from './../../logo.svg';
 import "./../../styles/NavBar.css";
 import { logOut } from '../../services/AuthService';
 import { withRouter,Link } from 'react-router-dom';
@@ -40,7 +40,7 @@ class NavBar extends Component {
         }
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <Link className="navbar-brand" to="/">Master coup <img className="App-logo" src={logo} alt="Logotipo"/></Link>
+                <Link className="navbar-brand" to="/">Master coup <Logo className="App-logo" /></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
