@@ -2,27 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {ReactComponent as Logo} from './../../logo.svg';
 import "./../../styles/NavBar.css";
-import { logOut } from '../../services/AuthService';
 import { withRouter,Link } from 'react-router-dom';
-import { notificationsRef } from '../../services/DatabaseService';
-import Notification from '../Notification/Notification';
-import NotificationModal from '../Modal/NotificationModal';
-import NavItem from './NavItem';
-import {INICIO, PERFIL, REGISTRO, LISTA} from './../Const/PathName';
+import {INICIO} from './../Const/PathName';
+import NavBarAuthenticatedUser from './NavBarAuthenticatedUser';
+import MortalNavBar from './MortalNavBar';
 
 class NavBar extends Component {
     state = {
-        notifications: {},
         userLoaded: false,
-        loadNotifications: false,
         active: INICIO
     };
-
-    close = (e) => {
-        e.preventDefault();
-        logOut();
-        this.props.history.push('/');
-    }
 
     componentWillMount() {
         this.setState({ active: this.props.location.pathname });
@@ -33,11 +22,6 @@ class NavBar extends Component {
     }
 
     render() {
-        if(this.props.uid != null && !this.state.userLoaded) {
-            notificationsRef.child(this.props.uid).on('value', (notifications) => {
-                this.setState({ notifications: notifications.val(), userLoaded: true });
-            });
-        }
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <Link className="navbar-brand" to="/">Master coup <Logo className="App-logo" /></Link>
@@ -45,49 +29,12 @@ class NavBar extends Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        {this.props.userName == null &&
-                            <NavItem to={REGISTRO} active={this.state.active} title="Registro" onClick={this.changeActive} />
-                        }
-                        {this.props.uid != null &&
-                        <li className="nav-item dropdown">
-                            <button onClick={() => this.setState({ loadNotifications: true })} className="btn btn-dark dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Notificaciones <span className="badge badge-light">{this.state.notifications instanceof Object && Object.keys(this.state.notifications).length}</span>
-                            </button>
-                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {this.state.notifications instanceof Object && Object.keys(this.state.notifications).map((notification, index) => (
-                                <div key={index}>
-                                    <Notification type={this.state.notifications[notification].type} name={this.state.notifications[notification].name} sender={this.state.notifications[notification].sender} />
-                                </div>
-                            ))}
-                            </div>
-                        </li>
-                        }
-                        {this.props.uid != null && this.state.loadNotifications &&
-                            <div>
-                                {this.state.notifications instanceof Object && Object.keys(this.state.notifications).map((notification) => (
-                                    <NotificationModal notification={this.state.notifications[notification]} />
-                                ))}
-                            </div>
-                        }
-                        {this.props.uid != null &&
-                            <NavItem to={LISTA} active={this.state.active} title="Lista de equipos" onClick={this.changeActive} />
-                        }
-                        {this.props.uid != null &&
-                            <NavItem to={PERFIL} active={this.state.active} title="Tu perfil" onClick={this.changeActive} />
-                        }
-                        {this.props.userName != null ?
-                            <NavItem to={INICIO} active={this.state.active} title="Cerrar sesion" onLinkClicked={this.close} onClick={this.changeActive} />
-                        :
-                            <NavItem to={INICIO} active={this.state.active} title="Iniciar sesion" onClick={this.changeActive} />
-                        }
-                        {this.props.userName == null &&
-                            <NavItem to={INICIO} active={this.state.active} title="Informacion" onClick={this.changeActive} />
-                        }
-                        {this.props.userName == null &&
-                            <NavItem to={INICIO} active={this.state.active} title="Sobre nosotros" onClick={this.changeActive} />
-                        }
-                    </ul>
+                    {this.props.userName == null &&
+                        <MortalNavBar active={this.state.active} changeActive={this.changeActive} />
+                    }
+                    {this.props.uid != null &&
+                        <NavBarAuthenticatedUser push={this.props.history.push} active={this.state.active} changeActive={this.changeActive} uid={this.props.uid} loadNotifications={this.loadNotifications} />
+                    }
                 </div>
             </nav>
         );

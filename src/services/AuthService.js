@@ -38,7 +38,3 @@ export const signIn = (email, password) => {
         console.log(rejected);
     });
 }
-
-export const logOut = (history) => {
-    auth.signOut();
-}

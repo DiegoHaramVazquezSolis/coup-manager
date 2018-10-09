@@ -20,7 +20,7 @@ class Routes extends Component {
                 <Route exact path="/perfil" component={ProfileView} />
                 <Route exact path="/perfil/equipo" component={TeamPrivateProfile} />
                 <Route exact path="/estadisticas/:etapa/:number" component={UserMatchStatistics} />
-                <Route exact path="/estadisticas/equipo/partido/:matchResultId" component={TeamMatchStatistics} />
+                <Route exact path="/equipo/estadisticas/partido/:matchResultId" component={TeamMatchStatistics} />
             </Switch>
         );
     }

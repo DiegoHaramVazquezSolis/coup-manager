@@ -8,19 +8,19 @@ class TeamResult extends Component {
         return (
             <tr>
                 <td>
-                    <Link to={"/estadisticas/equipo/partido/"+this.props.result.matchResult}>
+                    <Link to={"/equipo/estadisticas/partido/"+this.props.result.matchResult}>
                         <Result 
                             name={this.props.result.local}
                             teamLogo={this.props.result.local === this.props.team ? this.props.teamLogo : this.props.result.rivalLogo} />
                     </Link>
                 </td>
                 <td style={{verticalAlign: "middle"}} className={"w-25 "+(this.props.result.active ? "bg-warning" : "filled")}>
-                    <Link to={"/estadisticas/equipo/"+this.props.result.matchResult}>
+                    <Link to={"/equipo/estadisticas/partido/"+this.props.result.matchResult}>
                         {this.props.result.golesL+"-"+this.props.result.golesV}
                     </Link>
                 </td>
                 <td>
-                    <Link to={"/estadisticas/equipo/"+this.props.result.matchResult}>
+                    <Link to={"/equipo/estadisticas/partido/"+this.props.result.matchResult}>
                         <Result 
                             name={this.props.result.visitante}
                             teamLogo={this.props.result.visitante === this.props.team ? this.props.teamLogo : this.props.result.rivalLogo} />

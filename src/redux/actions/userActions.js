@@ -43,7 +43,7 @@ function getProfile(user, dispatch) {
 
 export const logOut = () => (dispatch) => {
     auth.signOut().then(() => {
-        dispatch({type: LOGOUT_SUCCESS});
+        dispatch(userLogOut());
         toastr.success("Hasta pronto");
     },function (error) {
         toastr.error("Error al cerrar sesion");

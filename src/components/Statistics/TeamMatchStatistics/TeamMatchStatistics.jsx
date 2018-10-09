@@ -21,7 +21,7 @@ class TeamMatchStatistics extends Component {
         loaded: false
     };
 
-    componentDidUpdate(){
+    /*componentDidUpdate(){
         if(!this.state.loaded && this.props.team !== undefined){
             resultsRef.child(this.props.match.params.matchResultId).on('value',(statistics) => {
                 console.log(statistics.val());
@@ -34,10 +34,20 @@ class TeamMatchStatistics extends Component {
                 });
             });
         }
-    }
+    }*/
 
     render() {
-        console.log(this.state.statistics);
+        if(!this.state.loaded && this.props.team !== undefined){
+            resultsRef.child(this.props.match.params.matchResultId).on('value',(statistics) => {
+                this.setState({ statistics: statistics.val(), loaded: true  });
+                teamsRef.child(statistics.val().MatchData.local.replace(' ','').toUpperCase()).child('logo').once('value', (logo) => {
+                    this.setState({ localLogo: logo.val()  });
+                });
+                teamsRef.child(statistics.val().MatchData.visitante.replace(' ','').toUpperCase()).child('logo').once('value', (logo) => {
+                    this.setState({ visitanteLogo: logo.val()  });
+                });
+            });
+        }
         return (
             <Card>
                 <Header title={"Estadistica "+this.props.team} />
