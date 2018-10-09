@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Card from '../Card/Card';
-import CardHeader from '../Card/CardHeader';
-import CardBody from '../Card/CardBody';
-import Header from '../Header';
-import './UserMatchStatistics.module.css';
+import Card from '../../Card/Card';
+import CardHeader from '../../Card/CardHeader';
+import CardBody from '../../Card/CardBody';
+import Header from '../../Header';
 import UserMatchStatisticsHeader from './UserMatchStatisticsHeader';
 import UserMatchOfensiveStatistics from './UserMatchOfensiveStatistics/UserMatchOfensiveStatistics';
 import UserPerformanceStatistics from './UserPerformanceStatistics/UserPerformanceStatistics';
 import UserMatchDefensiveStatistics from './UserMatchDefensiveStatistics/UserMatchDefensiveStatistics';
 import UserMatchFaultsStatistics from './UserMatchFaultsStatistics/UserMatchFaultsStatistics';
-import { statisticsRef } from '../../services/DatabaseService';
+import { statisticsRef } from '../../../services/DatabaseService';
 
 class UserMatchStatistics extends Component {
     state = {

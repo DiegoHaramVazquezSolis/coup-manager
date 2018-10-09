@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Row from '../../Grid/Row/Row';
-import Col from '../../Grid/Col/Col';
+import Row from '../../../Grid/Row/Row';
+import Col from '../../../Grid/Col/Col';
 import GoalStatistics from './GoalStatistics';
 import OccasionsStatistics from './OccasionsStatistics';
 import OtherStatistics from './OtherStatistics';

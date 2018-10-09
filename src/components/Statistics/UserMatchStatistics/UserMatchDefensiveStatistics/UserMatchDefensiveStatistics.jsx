@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Row from '../../Grid/Row/Row';
-import Col from '../../Grid/Col/Col';
+import Row from '../../../Grid/Row/Row';
+import Col from '../../../Grid/Col/Col';
+import style from './../UserMatchStatistics.module.css';
 
 class UserMatchDefensiveStatistics extends Component {
     state = {
@@ -24,7 +25,7 @@ class UserMatchDefensiveStatistics extends Component {
                     <pre style={{paddingLeft: ".75em"}}>
                         <h5><p>Acciones totales</p></h5><h3>{this.state.sum}</h3>
                     </pre>
-                    <table className="table statistics">
+                    <table className={"table "+style.statistics}>
                         <tbody>
                             <tr>
                                 <th className="text-muted">Disparos bloqueados</th>

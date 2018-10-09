@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import style from './../UserMatchStatistics.module.css';
 
 class UserPassTypesStatistics extends Component {
     state = {
@@ -31,7 +32,7 @@ class UserPassTypesStatistics extends Component {
                 <pre style={{paddingLeft: ".75em"}}>
                     <h5><p>Tipos intentados</p></h5><h3>{this.state.sum}/3</h3>
                 </pre>
-                <table className="table statistics">
+                <table className={"table "+style.statistics}>
                     <tbody>
                         <tr>
                             <th className="text-muted">Pases cortos</th>

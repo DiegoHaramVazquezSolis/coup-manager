@@ -1,0 +1,21 @@
+.title_centered {
+    text-align: center;
+    color: rgb(33, 37, 41);;
+    font-weight: bold;
+}
+
+.statistics td, .statistics th {
+    padding: .75rem !important;
+    border-top: 0 !important;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.statistics {
+    margin-bottom: 5rem;
+    margin-top: 2.5rem;
+}
+
+.bold {
+    font-weight: bold;
+}

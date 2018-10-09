@@ -5,9 +5,9 @@ import ListOfTeams from './components/ListOfTeams';
 import MemberSignIn from './components/MemberSignIn/MemberSignIn';
 import ProfileView from './components/Profile/ProfileView';
 import LogIn from './components/LogIn';
-import UserMatchStatistics from './components/Statistics/UserMatchStatistics';
+import UserMatchStatistics from './components/Statistics/UserMatchStatistics/UserMatchStatistics';
 import TeamPrivateProfile from './components/TeamPrivateProfile/TeamPrivateProfile';
-import TeamMatchStatistics from './components/Statistics/TeamMatchStatistics';
+import TeamMatchStatistics from './components/Statistics/TeamMatchStatistics/TeamMatchStatistics';
 
 class Routes extends Component {
     render() {

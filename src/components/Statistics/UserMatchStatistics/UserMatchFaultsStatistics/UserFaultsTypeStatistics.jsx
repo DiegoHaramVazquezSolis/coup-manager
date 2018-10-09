@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import style from './../UserMatchStatistics.module.css';
 
 class UserFaultsTypeStatistics extends Component {
     render() {
         return (
             <div>
                 <h4>Tarjetas</h4>
-                <table className="table statistics">
+                <table className={"table "+style.statistics}>
                     <tbody>
                         <tr>
                             <th className="text-muted">Tarjetas amarillas</th>
