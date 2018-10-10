@@ -8,7 +8,7 @@ class UserInfoCard extends Component {
     render() {
         return (
             <Card>
-                <CardHeader>
+                <CardHeader color="primary">
                     Tu informacion
                 </CardHeader>
                 <CardBody>

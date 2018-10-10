@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Card from './../Card/Card';
-import CardHeader from './../Card/CardHeader';
 import CardBody from './../Card/CardBody';
-import { teamsRef, usersRef } from './../../services/DatabaseService';
-import edit from './../../assets/pencil.png';
+import { teamsRef } from './../../services/DatabaseService';
+import Edit from '@material-ui/icons/Edit';
+import Cancel from '@material-ui/icons/Cancel';
 import UploadImage from '../UploadImage/UploadImage';
 import { uploadFile } from '../../services/StorageService';
-import FormGroup from '../Forms/FormGroup';
+import CardAvatar from '../Card/CardAvatar';
+import Button from '../CustomButtons/Button';
 
 class TeamInfo extends Component {
     state = {
@@ -38,6 +39,7 @@ class TeamInfo extends Component {
 
     afterUpload = (downloadURL) => {
         teamsRef.child(this.props.team.replace(' ','').toUpperCase()).update({logo: downloadURL});
+        this.setState({ edit: false });
     }
 
     saveImage = (e) => {
@@ -45,41 +47,44 @@ class TeamInfo extends Component {
         uploadFile('TeamsLogos/'+this.props.team,this.state.file,this.setProgress,this.afterUpload);
     }
 
-    render() {
-        if(!this.state.loaded && this.props.team !== undefined){
-            teamsRef.child(this.props.team.replace(' ','').toUpperCase()).child('logo').once('value', (logo) => {
-                this.setState({logo: logo.val(), loaded: true});
-            });
-            usersRef.orderByChild('captain').equalTo(true).once('value', (captains) => {
-                captains.forEach((captain) => {
-                    if(captain.val().team === this.props.team){
-                        this.setState({ captainName: captain.val().name });
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (!prevState.loaded) {
+            for (const player in nextProps.team.Players) {
+                if (nextProps.team.Players.hasOwnProperty(player)) {
+                    const jugador = nextProps.team.Players[player];
+                    if(jugador.captain === true){
+                        return {logo: nextProps.team.logo, captainName: jugador.name, loaded: true}
                     }
-                });
-            });
+                }
+            }
         }
+        return null;
+    }
+
+    render() {
         return (
-            <Card>
-                <CardHeader>
-                    Informacion del equipo
-                </CardHeader>
+            <Card profile={true}>
+                <CardAvatar profile>
+                    <img src={this.state.logo} alt="Logo del equipo" />
+                </CardAvatar>
                 <CardBody>
-                    <img className="card-img-top img-thumbnail rounded-circle" src={this.state.logo} alt=""/>
                     {this.state.edit &&
                         <div>
                             <UploadImage fileLabel="Selecciona el nuevo logo" handleUpload={this.handleUpload} uploadProgress={this.state.progress} />
-                            <FormGroup>
-                                <br/>
-                                <input type="button" onClick={this.saveImage} className="btn btn-dark btn-lg" value="Guardar cambios" />
-                            </FormGroup>
+                            <Button onClick={this.saveImage}>
+                                Guardar cambios
+                            </Button>
                         </div>
                     }
-                    <h3>{this.props.team}  
-                    {this.props.captain &&
-                        <img src={edit} alt="Editar" onClick={() => this.setState({ edit: true })} />
-                    }
+                    <h3>{this.props.team.name}
                     </h3>
                     <h5>Capitan: {this.state.captainName}</h5>
+                        {!this.state.edit
+                        ?
+                        <Edit onClick={() => this.setState({ edit: true })} />
+                        :
+                        <Cancel onClick={() => this.setState({ edit: false })} />
+                        }
                 </CardBody>
             </Card>
         );
@@ -88,8 +93,7 @@ class TeamInfo extends Component {
 
 function mapStateToProps(state) {
     return {
-        team: state.user.profile.team,
-        captain: state.user.profile.captain
+        team: state.userTeam.team
     }
 }
 

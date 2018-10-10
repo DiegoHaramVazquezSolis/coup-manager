@@ -5,6 +5,7 @@ import UploadImage from '../UploadImage/UploadImage';
 import { usersRef, teamsRef } from '../../services/DatabaseService';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
+import Button from '../CustomButtons/Button';
 
 class TeamForm extends Component {
     state = {
@@ -57,11 +58,12 @@ class TeamForm extends Component {
                     <label htmlFor="name">Nombre del equipo</label>
                     <input type="text" className="form-control" name="name" id="name" placeholder="Nombre del equipo" value={this.state.name} onChange={this.onChange} required/>
                 </FormGroup>
+                <label htmlFor="">Escoge el logo de tu equipo</label>
                 <UploadImage fileLabel={this.state.file !== null ? this.state.name : "Escoge el logo de tu equipo"} handleUpload={this.handleUpload} uploadProgress={this.state.uploadProgress} />
                 <br/>
-                <FormGroup>
-                    <input type="submit" className="btn btn-dark btn-lg" value="Guardar datos del equipo"/>
-                </FormGroup>
+                <Button type="submit" color="">
+                    Guardar datos del equipo
+                </Button>
             </form>
         );
     }

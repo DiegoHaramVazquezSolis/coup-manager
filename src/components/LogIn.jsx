@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import Card from './Card/Card';
 import CardHeader from './Card/CardHeader';
 import CardBody from './Card/CardBody';
-import FormInput from './Forms/FormInput';
 import { signIn } from '../services/AuthService';
 import Header from './Header';
-
+import GridItem from "./Grid/GridItem";
+import GridContainer from "./Grid/GridContainer.jsx";
+import CustomInput from './CustomInput/CustomInput';
+import CardFooter from './Card/CardFooter';
+import Button from "./CustomButtons/Button.jsx";
+/*
+import CardAvatar from "components/Card/CardAvatar.jsx";
+*/
 class LogIn extends Component {
     state = {
         email: '',
@@ -23,35 +29,44 @@ class LogIn extends Component {
 
     render() {
         return (
-            <Card>
-                <Header title="Inicio de sesion" />
-                <CardHeader>
-                    Inicio de sesion
-                </CardHeader>
-                <CardBody>
-                    <form onSubmit={this.onSumbit}>
-                        <FormInput 
-                            id="email" 
-                            label="Direccion de correo electronico"
-                            type="email"
-                            placeholder="Correo electronico"
-                            value={this.state.email}
-                            onChange={this.onChange}
-                            required={true}
-                            />
-                        <FormInput 
-                            id="password" 
-                            label="Contraseña"
-                            type="password"
-                            placeholder="Contraseña"
-                            value={this.state.password}
-                            onChange={this.onChange}
-                            required={true}
-                            />
-                        <input type="submit" className="btn btn-dark btn-lg" value="Ingresar"/>
-                    </form>
-                </CardBody>
-            </Card>
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                        <Header title="Inicio de sesion" />
+                        <form onSubmit={this.onSumbit}>
+                            <CardHeader color="primary">
+                                Inicio de sesion
+                            </CardHeader>
+                            <CardBody>
+                                    <CustomInput 
+                                        labelText="Correo electronico"
+                                        id="email"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }} 
+                                        value={this.state.email}
+                                        onChange={this.onChange}
+                                        required={true}
+                                        type="email"/>
+                                    <CustomInput 
+                                        labelText="Contraseña"
+                                        id="password"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }} 
+                                        value={this.state.password}
+                                        onChange={this.onChange}
+                                        required={true}
+                                        type="password" />
+                                
+                            </CardBody>
+                            <CardFooter>
+                                <Button type="submit" color="">Ingresar</Button>
+                            </CardFooter>
+                        </form>
+                    </Card>
+                </GridItem>
+            </GridContainer>
         );
     }
 }

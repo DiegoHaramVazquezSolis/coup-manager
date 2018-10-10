@@ -8,6 +8,10 @@ import NotificationModal from '../Modal/NotificationModal';
 import {INICIO} from './../Const/PathName';
 import { logOut } from '../../redux/actions/userActions';
 import NavLinkItem from './NavLinkItem';
+import NotificationIcon from '@material-ui/icons/Notifications';
+import { getResult } from '../../redux/actions/resultActions';
+import { getStatistic } from '../../redux/actions/statisticActions';
+import { getAllTeams } from '../../redux/actions/teamsActions';
 
 class NavBarAuthenticatedUser extends Component {
     state = {
@@ -24,6 +28,9 @@ class NavBarAuthenticatedUser extends Component {
 
     render() {
         if(!this.state.loaded){
+            /*this.props.getResult("iionvoidsnvoidnsiov");
+            this.props.getStatistic("UHS4BLNsZsQjWaaRQzYMcDIWf6s1","Jornada1");
+            this.props.getAllTeams();*/
             notificationsRef.child(this.props.uid).on('value', (notifications) => {
                 this.setState({ notifications: notifications.val(), loaded: true });
             });
@@ -32,7 +39,7 @@ class NavBarAuthenticatedUser extends Component {
             <ul className="navbar-nav">
                 <NavItem className="nav-item dropdown">
                     <button onClick={() => this.setState({ loadNotifications: true })} className="btn btn-dark dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Notificaciones <span className="badge badge-light">{(this.state.notifications instanceof Object && Object.keys(this.state.notifications).length) || 0}</span>
+                        <NotificationIcon /><span className="badge badge-light">{(this.state.notifications instanceof Object && Object.keys(this.state.notifications).length) || 0}</span>
                     </button>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     {this.state.notifications instanceof Object && Object.keys(this.state.notifications).map((notification, index) => (
@@ -55,4 +62,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default NavBarAuthenticatedUser = connect(null,{mapDispatchToProps, logOut})(NavBarAuthenticatedUser);
+export default NavBarAuthenticatedUser = connect(null,{mapDispatchToProps, logOut, getAllTeams, getResult, getStatistic})(NavBarAuthenticatedUser);

@@ -8,20 +8,20 @@ import UploadImage from '../UploadImage/UploadImage';
 import FormGroup from '../Forms/FormGroup';
 import { uploadFile } from '../../services/StorageService';
 import { usersRef, teamsRef } from '../../services/DatabaseService';
+import Button from '../CustomButtons/Button';
 
 
 class UserProfile extends Component {
     state = {
         edit: false,
         image: edit,
-        imageSecure: edit,
         progress: 0,
         file: edit
     };
 
     static getDerivedStateFromProps(nextProps, prevState){
         if(prevState.image === edit){
-            return {image: nextProps.image || edit, imageSecure: nextProps.image || edit};
+            return {image: nextProps.image || edit};
         }
         return null;
     }
@@ -70,7 +70,9 @@ class UserProfile extends Component {
                     </FormGroup>
                     {this.state.edit && 
                         <center>
-                            <input type="button" onClick={this.saveImage} className="btn btn-dark btn-lg" value="Guardar cambios" />
+                            <Button onClick={this.saveImage}>
+                                Guardar cambios
+                            </Button>
                         </center>
                     }
                 </div>

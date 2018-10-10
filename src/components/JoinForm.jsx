@@ -7,6 +7,7 @@ import Collapse from './Collapse';
 import TeamForm from './TeamForm/TeamForm';
 import toastr from 'toastr';
 import Header from './Header';
+import Button from './CustomButtons/Button';
 
 class JoinForm extends Component {
     state = {
@@ -21,11 +22,6 @@ class JoinForm extends Component {
         this.setState({currentStep: index});
     }
 
-    dontBack = () => {
-        toastr.warning("No puedes volver a este paso");
-        toastr.info("Toda la informacion puedes modificarla posteriormente");
-    }
-
     continue = () => {
         toastr.success("Esto te manda a otra pagina :v");
     }
@@ -34,7 +30,7 @@ class JoinForm extends Component {
         return (
             <Card>
                 <Header title="Registro" description="Registro de capitan y equipo para copa 2018/9"/>
-                <CardHeader>
+                <CardHeader color={this.state.currentStep === 0 ? "primary" : this.state.currentStep > 0 ? "success" : ""}>
                     Registro personal
                 </CardHeader>
                 <CardBody close={this.state.currentStep !== 0}>
@@ -42,7 +38,7 @@ class JoinForm extends Component {
                         <RegisterForm nextStep={this.nextStep} />
                     </Collapse>
                 </CardBody>
-                <CardHeader styleLine="border-top">
+                <CardHeader color={this.state.currentStep === 1 ? "primary" : this.state.currentStep > 1 ? "success" : ""}>
                     Registra a tu equipo
                 </CardHeader>
                 <Collapse id="collapseTeam" show={this.state.currentStep === 1 ? "show" : ""}>
@@ -52,7 +48,9 @@ class JoinForm extends Component {
                 </Collapse>
                 <Collapse id="collapse" show={this.state.currentStep === 2 ? "show" : ""}>
                     <CardBody close={this.state.currentStep !== 2}>
-                        <input type="button" className="btn btn-primary" onClick={this.continue} value="Continuar" />
+                        <Button onClick={this.continue}>
+                            Continuar
+                        </Button>
                     </CardBody>
                 </Collapse>
             </Card>

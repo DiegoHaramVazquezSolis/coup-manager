@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import FormInput from '../Forms/FormInput';
-import FormInputSmall from '../Forms/FormInputSmall';
 import { createAccount } from '../../services/AuthService';
 import { usersRef, teamsRef, notificationsRef } from '../../services/DatabaseService';
 import toastr from 'toastr';
 import { withRouter } from 'react-router-dom'
+import CustomInput from '../CustomInput/CustomInput';
+import Tooltip from '@material-ui/core/Tooltip';
+import Help from '@material-ui/icons/Help';
+import GridContainer from '../Grid/GridContainer';
+import GridItem from '../Grid/GridItem';
+import Button from '../CustomButtons/Button';
 
 class MemberSignInForm extends Component {
     state = {
@@ -59,46 +63,66 @@ class MemberSignInForm extends Component {
     render() {
         return (
             <form onSubmit={this.onSubmit} >
-                <FormInput 
-                    placeholder="Nombre completo" 
-                    label="Nombre completo"
-                    id="name" 
-                    required={true} 
+                <CustomInput
+                    labelText="Nombre completo"
+                    id="name"
+                    formControlProps={{
+                        fullWidth: true
+                    }}
+                    required={true}
                     value={this.state.name}
                     onChange={this.onChange} />
-                <FormInput 
-                    placeholder="Edad" 
-                    label="Edad"
-                    type="number"
+                <CustomInput
+                    labelText="Edad"
                     id="age"
+                    formControlProps={{
+                        fullWidth: true
+                    }}
                     required={true}
                     value={this.state.age}
-                    onChange={this.onChange} />
-                <FormInput 
-                    placeholder="Apodo (opcional)" 
-                    label="Apodo"
-                    id="alias" 
+                    onChange={this.onChange}
+                    type="number" />
+                <CustomInput
+                    labelText="Apodo (opcional)"
+                    id="alias"
+                    formControlProps={{
+                        fullWidth: true
+                    }}
+                    required={true}
                     value={this.state.alias}
                     onChange={this.onChange} />
-                <FormInput 
-                    placeholder="Direccion de email" 
-                    type="email" 
-                    label="Direccion de correo electronico" 
-                    id="email" 
-                    required={true} 
-                    value={this.state.email} 
+                <CustomInput
+                    labelText="Direccion de correo electronico"
+                    id="email"
+                    formControlProps={{
+                        fullWidth: true
+                    }}
+                    required={true}
+                    value={this.state.email}
                     onChange={this.onChange} />
-                <FormInputSmall 
-                    smallId="passwordInstructions" 
-                    small="La contraseña debe contener al menos 6 caracteres" 
-                    placeholder="Contraseña" 
-                    type="password" 
-                    label="Contraseña" 
-                    id="password" 
-                    required={true} 
-                    value={this.state.password} 
-                    onChange={this.onChange} />
-                <input className="btn btn-secondary btn-lg" type="submit" value="Registrar"/>
+                    <GridContainer alignItems="flex-end">
+                        <GridItem xs={11} sm={11} md={11}>
+                            <CustomInput
+                            labelText="Contraseña"
+                            id="password"
+                            formControlProps={{
+                                fullWidth: true
+                            }}
+                            required={true}
+                            value={this.state.password}
+                            onChange={this.onChange}
+                            type="password" />
+                        </GridItem>
+                        <GridItem xs={1} sm={1} md={1}>
+                            <Tooltip title="Al menos 6 caracteres de longitud">
+                                <Help />
+                            </Tooltip>
+                        </GridItem>
+                    </GridContainer>
+                    <br/>
+                    <Button type="submit">
+                        Solicitar entrar
+                    </Button>
             </form>
         );
     }
