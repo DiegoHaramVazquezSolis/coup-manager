@@ -1,6 +1,14 @@
 import { combineReducers } from "redux";
 import { userReducer } from "./userReducer";
+import { userTeamReducer } from "./userTeamReducer";
+import { resultReducer } from "./resultReducer";
+import { statisticReducer } from "./statisticReducer";
+import { teamsReducer } from "./teamsReducer";
 
 export const rootReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    userTeam: userTeamReducer,
+    result: resultReducer,
+    statistic: statisticReducer,
+    teams: teamsReducer
 });

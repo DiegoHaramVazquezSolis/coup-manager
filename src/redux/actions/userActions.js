@@ -1,6 +1,7 @@
 import { auth } from "../../firebase";
 import {usersRef} from '../../services/DatabaseService';
 import toastr from 'toastr';
+import { getUserTeam } from "./userTeamActions";
 
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
@@ -9,8 +10,6 @@ export const userChecker = () => (dispatch) => {
     auth.onAuthStateChanged((user) => {
         if(user){
             return dispatch(getProfile(user,dispatch));
-        }else {
-            return dispatch(getProfile(user, dispatch));
         }
     });
 }
@@ -23,6 +22,7 @@ function getProfile(user, dispatch) {
     if(user == null){
         return dispatch(userLogOut());
     }
+    var loadNumber = 0
     usersRef.child(user.uid).on("value", function(profile) {
         const userProfile = {
             age: profile.val().age,
@@ -35,8 +35,13 @@ function getProfile(user, dispatch) {
             number: profile.val().number,
             phone: profile.val().phone,
             position: profile.val().position,
-            uid: profile.key
+            uid: profile.key,
+            loadNumber: loadNumber
         };
+        loadNumber++;
+        if (profile.val().team !== undefined) {
+            dispatch(getUserTeam(profile.val().team));   
+        }
         return dispatch(userLogginSuccess(userProfile));
     });
 }
