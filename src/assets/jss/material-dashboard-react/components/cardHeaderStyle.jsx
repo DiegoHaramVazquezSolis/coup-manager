@@ -4,7 +4,8 @@ import {
   dangerCardHeader,
   infoCardHeader,
   primaryCardHeader,
-  roseCardHeader
+  roseCardHeader,
+  infinitoCardHeader
 } from "../../material-dashboard-react.jsx";
 const cardHeaderStyle = {
   cardHeader: {
@@ -115,6 +116,12 @@ const cardHeaderStyle = {
     color: "#FFFFFF",
     "&:not($cardHeaderIcon)": {
       ...roseCardHeader
+    }
+  },
+  infinitoCardHeader: {
+    color: "#FFFFFF",
+    "&:not($cardHeaderIcon)": {
+      ...infinitoCardHeader
     }
   }
 };

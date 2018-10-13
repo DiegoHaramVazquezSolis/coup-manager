@@ -60,6 +60,7 @@ const successColor = "#4caf50";
 const infoColor = "#00acc1";
 const roseColor = "#e91e63";
 const grayColor = "#999999";
+const infinitoColor = "#e65f01";
 
 const primaryBoxShadow = {
   boxShadow:
@@ -110,6 +111,9 @@ const roseCardHeader = {
   background: "linear-gradient(60deg, #ec407a, #d81b60)",
   ...roseBoxShadow
 };
+const infinitoCardHeader = {
+  background: "#e65f01"
+}
 
 const cardActions = {
   margin: "0 20px 10px",
@@ -187,6 +191,7 @@ export {
   infoColor,
   roseColor,
   grayColor,
+  infinitoColor,
   primaryBoxShadow,
   infoBoxShadow,
   successBoxShadow,
@@ -199,6 +204,7 @@ export {
   infoCardHeader,
   primaryCardHeader,
   roseCardHeader,
+  infinitoCardHeader,
   cardActions,
   cardHeader,
   defaultBoxShadow,

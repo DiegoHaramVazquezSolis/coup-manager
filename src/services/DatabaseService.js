@@ -6,3 +6,4 @@ export const resultsRef = database.ref("Results");
 export const matchesRef = database.ref("Matches");
 export const notificationsRef = database.ref("Notifications");
 export const statisticsRef = database.ref("Statistics");
+export const chatsRef = database.ref("Chats");

@@ -29,7 +29,7 @@ class JoinForm extends Component {
     render() {
         return (
             <Card>
-                <Header title="Registro" description="Registro de capitan y equipo para copa 2018/9"/>
+                <Header title="Registra a tu equipo" description="Registro de capitan y equipo para copa 2018/9"/>
                 <CardHeader color={this.state.currentStep === 0 ? "primary" : this.state.currentStep > 0 ? "success" : ""}>
                     Registro personal
                 </CardHeader>

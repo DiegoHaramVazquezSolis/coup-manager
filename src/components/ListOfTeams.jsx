@@ -28,7 +28,7 @@ class ListOfTeams extends Component {
             return (
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                        <Header title="Lista de equipos" />
+                        <Header title="Unete a un equipo" />
                         <Card>
                             <CardHeader color="primary">
                                 Lista de equipos
