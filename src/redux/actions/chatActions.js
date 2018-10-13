@@ -4,8 +4,9 @@ export const GET_CHAT_MESSAGE_SUCCESS = "GET_CHAT_MESSAGE_SUCCESS";
 
 export const getChatMessages = (teamName) => (dispatch) => {
     chatsRef.child(teamName.replace(' ','').toUpperCase())
+    .orderByChild('timeStamp')
+    .limitToLast(10)
     .on('child_added', (messages) => {
-        //array.push(messages);
         dispatch(getMessage(messages));
     });
 }

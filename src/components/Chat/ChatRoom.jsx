@@ -15,6 +15,8 @@ import Avatar from '@material-ui/core/Avatar';
 import { getTeamMembers } from '../../redux/actions/teamMembersActions';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { serverValue } from '../../firebase';
+import Header from '../Header';
 
 class ChatRoom extends Component {
     state = {
@@ -24,7 +26,7 @@ class ChatRoom extends Component {
 
     componentDidUpdate(prevProps) {
         if(prevProps.chat.chat.length < this.props.chat.chat.length)
-            this.stayScrolled(); // Or: this.scrollBottom
+            this.stayScrolled();
     }
 
     storeScrolledControllers = ({ stayScrolled, scrollBottom }) => {
@@ -45,27 +47,28 @@ class ChatRoom extends Component {
         e.preventDefault();
         chatsRef.child(this.props.teamName.replace(' ','').toUpperCase()).push({
             message: this.state.currentMessage,
-            sender: this.props.uid
+            sender: this.props.uid,
+            timeStamp: serverValue.TIMESTAMP
         });
         this.setState({ currentMessage: "" });
     }
 
     render() {
-        console.log(this.props.members);
         return (
             <GridContainer>
+                <Header title="Chatea con tu equipo" />
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
                             Chat equipo {this.props.teamName}
                         </CardHeader>
-                        <StayScrolled provideControllers={this.storeScrolledControllers} Component="div" style={{height: "500px", overflowY: "scroll"}}>
+                        <StayScrolled provideControllers={this.storeScrolledControllers} style={{height: "500px", overflowY: "scroll"}}>
                             <CardBody>
-                                {this.props.chat.chat instanceof Array && this.props.chat.chat.map((message) => {
+                                {this.props.chat.chat instanceof Array && this.props.chat.chat.map((message, index) => {
                                     if(message.sender === this.props.uid){
                                         return (
-                                            <GridContainer>
-                                                <GridItem xs={0} sm={2} md={6}></GridItem>
+                                            <GridContainer key={index}>
+                                                <GridItem sm={2} md={6}></GridItem>
                                                 <GridItem xs={12} sm={10} md={6}>
                                                     <Card>
                                                         <CardHeader color="info">
@@ -85,7 +88,7 @@ class ChatRoom extends Component {
                                         );
                                     }else {
                                         return (
-                                            <GridContainer>
+                                            <GridContainer key={index}>
                                                 <GridItem xs={12} sm={10} md={6}>
                                                     <Card>
                                                         <CardHeader color="primary">
@@ -120,11 +123,16 @@ class ChatRoom extends Component {
                                         }}
                                         labelText="Mensaje para el equipo"
                                         required={true}
+                                        inputProps = {{
+                                            onInvalid: (e) => e.target.setCustomValidity('Por favor, escribe un mensaje'),
+                                            onInput: (e) => e.target.setCustomValidity(''),
+                                        }}
                                     />
                                     <Button type="submit">
                                         Enviar
                                     </Button>
                                 </form>
+                                <br/>
                             </GridItem>
                         </GridContainer>
                     </Card>
