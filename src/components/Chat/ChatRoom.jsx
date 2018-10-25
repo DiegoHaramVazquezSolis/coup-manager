@@ -6,33 +6,15 @@ import GridItem from '../Grid/GridItem';
 import Card from '../Card/Card';
 import CardHeader from '../Card/CardHeader';
 import { getChatMessages } from '../../redux/actions/chatActions';
-import CardBody from '../Card/CardBody';
-import CustomInput from '../CustomInput/CustomInput';
-import Button from '../CustomButtons/Button';
-import { chatsRef } from '../../services/DatabaseService';
-import StayScrolled from 'react-stay-scrolled';
-import Avatar from '@material-ui/core/Avatar';
 import { getTeamMembers } from '../../redux/actions/teamMembersActions';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { serverValue } from '../../firebase';
 import Header from '../Header';
+import MessagesList from './MessagesList';
+import CreateMessageForm from './CreateMessageForm';
 
 class ChatRoom extends Component {
     state = {
-        loaded: false,
-        currentMessage: ""
+        loaded: false
     };
-
-    componentDidUpdate(prevProps) {
-        if(prevProps.chat.chat.length < this.props.chat.chat.length)
-            this.stayScrolled();
-    }
-
-    storeScrolledControllers = ({ stayScrolled, scrollBottom }) => {
-        this.stayScrolled = stayScrolled;
-        this.scrollBottom = scrollBottom;
-    }
 
     static getDerivedStateFromProps(nextProps, prevState){
         if(!prevState.loaded && nextProps.teamName !== undefined){
@@ -41,16 +23,6 @@ class ChatRoom extends Component {
             return {loaded: true}
         }
         return null
-    }
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        chatsRef.child(this.props.teamName.replace(' ','').toUpperCase()).push({
-            message: this.state.currentMessage,
-            sender: this.props.uid,
-            timeStamp: serverValue.TIMESTAMP
-        });
-        this.setState({ currentMessage: "" });
     }
 
     render() {
@@ -62,79 +34,15 @@ class ChatRoom extends Component {
                         <CardHeader color="primary">
                             Chat equipo {this.props.teamName}
                         </CardHeader>
-                        <StayScrolled provideControllers={this.storeScrolledControllers} style={{height: "500px", overflowY: "scroll"}}>
-                            <CardBody>
-                                {this.props.chat.chat instanceof Array && this.props.chat.chat.map((message, index) => {
-                                    if(message.sender === this.props.uid){
-                                        return (
-                                            <GridContainer key={index}>
-                                                <GridItem sm={2} md={6}></GridItem>
-                                                <GridItem xs={12} sm={10} md={6}>
-                                                    <Card>
-                                                        <CardHeader color="info">
-                                                            <ListItem>
-                                                                <Avatar src={this.props.members[message.sender].foto} alt="" />
-                                                                <ListItemText
-                                                                    primary={this.props.members[message.sender].name}
-                                                                    secondary={this.props.members[message.sender].position || ""} />
-                                                            </ListItem>
-                                                        </CardHeader>
-                                                        <CardBody>
-                                                            <p>{message.message}</p>
-                                                        </CardBody>
-                                                    </Card>
-                                                </GridItem>
-                                            </GridContainer>
-                                        );
-                                    }else {
-                                        return (
-                                            <GridContainer key={index}>
-                                                <GridItem xs={12} sm={10} md={6}>
-                                                    <Card>
-                                                        <CardHeader color="primary">
-                                                            <ListItem>
-                                                                <Avatar src={this.props.members[message.sender].foto} alt="" />
-                                                                <ListItemText
-                                                                    primary={this.props.members[message.sender].name}
-                                                                    secondary={this.props.members[message.sender].position || ""} />
-                                                            </ListItem>
-                                                        </CardHeader>
-                                                        <CardBody>
-                                                            <p>{message.message}</p>
-                                                        </CardBody>
-                                                    </Card>
-                                                </GridItem>
-                                            </GridContainer>
-                                        );
-                                    }
-                                })}
-                            </CardBody>
-                        </StayScrolled>
-                        <GridContainer>
-                            <GridItem xs={1} sm={1} md={1}></GridItem>
-                            <GridItem xs={10} sm={10} md={10}>
-                                <form onSubmit={this.onSubmit}>
-                                    <CustomInput
-                                        value={this.state.currentMessage}
-                                        onChange={(e) => this.setState({ currentMessage: e.target.value })}
-                                        id="currentMessage"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        labelText="Mensaje para el equipo"
-                                        required={true}
-                                        inputProps = {{
-                                            onInvalid: (e) => e.target.setCustomValidity('Por favor, escribe un mensaje'),
-                                            onInput: (e) => e.target.setCustomValidity(''),
-                                        }}
-                                    />
-                                    <Button type="submit">
-                                        Enviar
-                                    </Button>
-                                </form>
-                                <br/>
-                            </GridItem>
-                        </GridContainer>
+                        {this.props.fetched &&
+                            <MessagesList
+                                uid={this.props.uid}
+                                members={this.props.members}
+                                messages={this.props.chat.chat} />
+                        }
+                        <CreateMessageForm
+                            teamName={this.props.teamName}
+                            sender={this.props.uid} />
                     </Card>
                 </GridItem>
             </GridContainer>
@@ -154,7 +62,8 @@ function mapStateToProps(state) {
         teamLogo: state.userTeam.team.logo,
         chat: state.chat.chat,
         uid: state.user.profile.uid,
-        members: state.members.teamMembers
+        members: state.members.teamMembers,
+        fetched: Object.keys(state.members.teamMembers).length > 0
     }
 }
 
